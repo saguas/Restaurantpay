@@ -1,0 +1,62 @@
+<template name="restaurantPaymentForm">
+  <form>
+    <div class="alert alert-danger hidden">Oh! Snap!</div>
+    {{#if hasTables}}
+        <table class="table table-hover">
+          <caption>Table Selection</caption>
+          <thead>
+            {{#if hasFloor}}
+              <th>
+                Floor
+              </th>
+            {{/if}}
+            <th>
+              Table Nº
+            </th>
+            <th>
+              Client Nº
+            </th>
+          </thead>
+          <tbody>
+            {{#if clientOnly}}
+              {{#each table in tables}}
+                <tr class='clickable-row' data-floor="{{floor table.tableNumber}}" data-tablenumber="{{tableNumber table.tableNumber}}" data-clientid="{{table.masterClientNumber}}">
+                  {{#if hasFloor}}
+                    <td>
+                      {{floor table.tableNumber}}
+                    </td>
+                  {{/if}}
+                  <td>
+                    {{tableNumber table.tableNumber}}
+                  </td>
+                  <td>
+                    {{table.masterClientNumber}}{{#if closedTable}}&nbsp;&nbsp;<small><span class="label label-warning">Closed</span></small>{{/if}}
+                  </td>
+                </tr>
+              {{/each}}
+            {{else}}
+                <tr class='clickable-row' data-floor="{{floor}}" data-tablenumber="{{tableNumber}}" data-clientid="{{clientId}}">
+                  {{#if hasFloor}}
+                    <td>
+                      {{floor}}
+                    </td>
+                  {{/if}}
+                  <td>
+                    {{tableNumber}}
+                  </td>
+                  <td>
+                    {{clientId}}{{#if closedTable}}&nbsp;&nbsp;<small><span class="label label-warning">Closed</span></small>{{/if}}
+                  </td>
+                </tr>
+            {{/if}}
+          </tbody>
+        </table>
+    {{/if}}
+    {{#unless closedTable}}
+      <button type="submit" class="btn btn-lg btn-success btn-block btn-complete-order">
+        <span id="btn-complete-order" data-i18n="checkoutPayment.completeYourOrder">Complete your order</span>
+        <i class="fa fa-spinner fa-spin hidden" id="btn-processing"></i>
+      </button>
+    {{/unless}}
+  </form>
+</template>

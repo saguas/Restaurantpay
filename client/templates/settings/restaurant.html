@@ -1,0 +1,54 @@
+<template name="restaurantSettings">
+  <div class="panel panel-default">
+
+    <div class="panel-body">
+      {{#autoForm collection="ReactionCore.Collections.Packages" schema="ReactionCore.Schemas.PaymentMethodPackageConfig" doc=packageData type="update" id="restaurant-update-form"}}
+        {{>afQuickField name='settings.apiKey'}}
+        <button type="submit" class="btn btn-primary pull-right">Update</button>
+      {{/autoForm}}
+    </div>
+  </div>
+
+</template>
+
+
+<template name="restaurant">
+  <div class="container-fluid-sm flex">
+    <div class="flex-item">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">Restaurant Payment Method Checkout</div>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item">
+            {{#if packageData.settings.apiKey}}
+              <span>API Client ID: <button type="button" class="btn btn-link" data-event-action="showRestaurantSettings">**********</button></span>
+            {{else}}
+              <span>API Client ID: <button type="button" class="btn btn-link" data-event-action="showRestaurantSettings">Configure Now</button></span>
+            {{/if}}
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="left"></div>
+          <div class="right">
+
+            <div class="panel-footer-item">
+              {{#if packageData.settings.apiKey}}
+                <i class="fa fa-check-circle fa-2x text-success"></i>
+              {{else}}
+                <i class="fa fa-minus-circle fa-2x text-muted"></i>
+              {{/if}}
+            </div>
+
+            <div class="panel-footer-item">
+              <button class="btn btn-default" data-event-action="showRestaurantSettings">
+                <i class="fa fa-gear"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
